@@ -3,7 +3,7 @@ import { ReactNativeThemedStyledComponentsModule } from 'styled-components/nativ
 import { ColorsType } from './colors';
 
 interface CustomTheme {
-  colors: ColorsType;
+  Colors: ColorsType;
 }
 
 type CustomThemeStyled = ReactNativeThemedStyledComponentsModule<CustomTheme>;
