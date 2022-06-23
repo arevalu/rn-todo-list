@@ -12,6 +12,7 @@ export const RootNavigation: FunctionComponent = () => (
       initialRouteName="Home"
       screenOptions={{
         animation: 'slide_from_right',
+        headerShown: false,
       }}
     >
       <Stack.Screen name="AddTask" component={AddTaskScreen} />
