@@ -1,12 +1,10 @@
-import React from 'react';
-import {Text, View} from 'react-native';
+import React, { FunctionComponent } from 'react';
+import { Text, View } from 'react-native';
 
-const App = () => {
-  return (
-    <View>
-      <Text>TODO list</Text>
-    </View>
-  );
-};
+const App: FunctionComponent = () => (
+  <View>
+    <Text>TODO list</Text>
+  </View>
+);
 
 export default App;
