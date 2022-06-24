@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { css } from '../../core/theme';
+import { ColorsKey, css } from '../../core/theme';
 import styled from '../../core/theme/styled-components';
 
 /**
@@ -7,6 +7,7 @@ import styled from '../../core/theme/styled-components';
  */
 
 interface CheckboxProps {
+  color: ColorsKey;
   checked: boolean;
 }
 
@@ -14,12 +15,14 @@ interface CheckboxProps {
  * Constants
  */
 
-const CheckboxChecked = css`
-  background-color: ${({ theme: { Colors } }) => Colors.gray500};
+const CheckboxChecked = css<CheckboxProps>`
+  background-color: ${({ color, theme: { Colors } }) =>
+    Colors[color] || Colors.gray500};
 `;
 
-const CheckboxUnchecked = css`
-  border-color: ${({ theme: { Colors } }) => Colors.gray500};
+const CheckboxUnchecked = css<CheckboxProps>`
+  border-color: ${({ color, theme: { Colors } }) =>
+    Colors[color] || Colors.gray500};
   border-width: 1px;
 `;
 

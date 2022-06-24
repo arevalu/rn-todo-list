@@ -1,5 +1,9 @@
 export const Colors = {
   black: '#000000',
+  defaultCategory: '#43a0ff',
+  gray100: '#f1f1f1',
+  gray500: '#898a8d',
+  text: '#222222',
   white: '#FFFFFF',
 };
 
