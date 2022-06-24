@@ -23,7 +23,11 @@ interface NavbarCompound {
  * Styled components
  */
 
-const NavbarWrapper = styled.View``;
+const NavbarWrapper = styled.View`
+  border-bottom-color: ${({ theme: { Colors } }) => Colors.gray100};
+  border-bottom-width: 2px;
+  padding: 32px 16px 24px;
+`;
 
 /**
  * Navbar
