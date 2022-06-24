@@ -3,6 +3,7 @@ export const Colors = {
   defaultCategory: '#43a0ff',
   gray100: '#f1f1f1',
   gray500: '#898a8d',
+  primary: '#25c06c',
   text: '#222222',
   white: '#FFFFFF',
 };

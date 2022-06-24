@@ -10,6 +10,7 @@ import styled, { css } from '../../core/theme/styled-components';
 interface ContainerProps {
   backgroundColor?: ColorsKey;
   children: ReactNode;
+  horizontalSpacing?: boolean;
   spacing?: boolean;
 }
 
@@ -19,6 +20,10 @@ interface ContainerProps {
 
 const ContainerSpacing = css`
   padding: 16px;
+`;
+
+const ContainerHorizontalSpacing = css`
+  padding: 0 16px;
 `;
 
 /**
@@ -31,6 +36,7 @@ const ContainerWrapper = styled(SafeAreaView)<ContainerProps>`
   flex: 1;
 
   ${({ spacing }) => spacing && ContainerSpacing};
+  ${({ horizontalSpacing }) => horizontalSpacing && ContainerHorizontalSpacing};
 `;
 
 /**
@@ -40,9 +46,9 @@ const ContainerWrapper = styled(SafeAreaView)<ContainerProps>`
 export const Container: FunctionComponent<ContainerProps> = ({
   backgroundColor,
   children,
-  spacing,
+  ...containerProps
 }) => (
-  <ContainerWrapper backgroundColor={backgroundColor} spacing={spacing}>
+  <ContainerWrapper backgroundColor={backgroundColor} {...containerProps}>
     {children}
   </ContainerWrapper>
 );
