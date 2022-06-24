@@ -1,7 +1,7 @@
 import React, { FunctionComponent, ReactNode } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ColorsKey } from '../../core/theme/colors';
-import styled from '../../core/theme/styled-components';
+import styled, { css } from '../../core/theme/styled-components';
 
 /**
  * Types
@@ -10,18 +10,27 @@ import styled from '../../core/theme/styled-components';
 interface ContainerProps {
   backgroundColor?: ColorsKey;
   children: ReactNode;
+  spacing?: boolean;
 }
+
+/**
+ * Constants
+ */
+
+const ContainerSpacing = css`
+  padding: 16px;
+`;
 
 /**
  * Styled components
  */
 
-const ContainerWrapper = styled(SafeAreaView)<
-  Pick<ContainerProps, 'backgroundColor'>
->`
+const ContainerWrapper = styled(SafeAreaView)<ContainerProps>`
   background-color: ${({ backgroundColor, theme }) =>
     theme.Colors[backgroundColor ?? 'white']};
   flex: 1;
+
+  ${({ spacing }) => spacing && ContainerSpacing};
 `;
 
 /**
@@ -31,8 +40,9 @@ const ContainerWrapper = styled(SafeAreaView)<
 export const Container: FunctionComponent<ContainerProps> = ({
   backgroundColor,
   children,
+  spacing,
 }) => (
-  <ContainerWrapper backgroundColor={backgroundColor}>
+  <ContainerWrapper backgroundColor={backgroundColor} spacing={spacing}>
     {children}
   </ContainerWrapper>
 );
