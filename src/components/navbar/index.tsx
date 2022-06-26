@@ -26,6 +26,8 @@ interface NavbarCompound {
 const NavbarWrapper = styled.View`
   border-bottom-color: ${({ theme: { Colors } }) => Colors.gray100};
   border-bottom-width: 2px;
+  align-items: center;
+  flex-direction: row;
   padding: 32px 16px 24px;
 `;
 
