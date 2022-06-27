@@ -45,7 +45,7 @@ export const InputText: FunctionComponent<InputTextProps> = ({
   ...inputProps
 }) => (
   <InputWrapper lastItem={lastItem}>
-    {!!label && <Label>{label}</Label>}
+    {label ? <Label>{label}</Label> : null}
     <Input {...inputProps} />
   </InputWrapper>
 );

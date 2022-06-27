@@ -38,7 +38,7 @@ export const SafeArea: FunctionComponent<ContainerProps> = ({
   const SafeAreaStyles = {
     paddingTop: insets.top,
     paddingRight: insets.right,
-    paddingBottom: insets.bottom,
+    paddingBottom: insets.bottom + 16,
     paddingLeft: insets.left,
   };
 

@@ -7,7 +7,7 @@ import styled from '@core/theme/styled-components';
 
 interface WrapperProps {
   backgroundColor?: ColorsKey;
-  flex?: boolean;
+  expanded?: boolean;
   fullWidth?: boolean;
 }
 
@@ -21,6 +21,6 @@ export const Wrapper = styled.View<WrapperProps>`
   background-color: ${({ backgroundColor, theme: { Colors } }) =>
     Colors[backgroundColor || 'white']};
 
-  ${({ flex = true }) => flex && 'flex: 1;'}
+  ${({ expanded = true }) => expanded && 'flex: 1;'}
   ${({ fullWidth }) => !fullWidth && 'padding: 0 16px;'}
 `;

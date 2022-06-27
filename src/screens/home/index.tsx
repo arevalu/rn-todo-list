@@ -77,7 +77,7 @@ export const HomeScreen: FunctionComponent<HomeScreenProps> = ({
   return (
     <>
       {(!isEmptyArray(tasks) || selectedFilter === FilterOptions.COMPLETED) && (
-        <Wrapper flex={false} fullWidth>
+        <Wrapper expanded={false} fullWidth>
           <FilterSection options={options} onChangeFilter={changeFilter} />
         </Wrapper>
       )}
