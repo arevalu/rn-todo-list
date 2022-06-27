@@ -24,11 +24,12 @@ interface NavbarCompound {
  */
 
 const NavbarWrapper = styled.View`
+  align-items: center;
+  background-color: ${({ theme: { Colors } }) => Colors.white};
   border-bottom-color: ${({ theme: { Colors } }) => Colors.gray100};
   border-bottom-width: 2px;
-  align-items: center;
   flex-direction: row;
-  padding: 32px 16px 24px;
+  padding: 16px 16px 24px;
 `;
 
 /**
