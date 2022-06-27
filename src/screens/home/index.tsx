@@ -1,27 +1,16 @@
 import React, { FunctionComponent, useCallback, useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FlatList } from 'react-native';
 import { Container, EmptyState } from '../../components';
 import { Button } from '../../components/button';
 import { Navbar } from '../../components/navbar';
 import { isEmptyArray } from '../../core/helpers';
+import { storage, storedKeys } from '../../core/helpers/storage';
 import { RootNavigationParams } from '../../core/routing/types';
 import styled from '../../core/theme/styled-components';
 import { ItemList } from './item-list';
 import { Task } from './types';
-
-const Tasks: Task[] = [
-  {
-    id: '1',
-    title: 'My first task',
-    completed: false,
-  },
-  {
-    id: '2',
-    title: 'My second task',
-    completed: true,
-  },
-];
 
 /**
  * Types
@@ -45,7 +34,7 @@ const FlatlistWrapper = styled.View`
 export const HomeScreen: FunctionComponent<HomeScreenProps> = ({
   navigation: { navigate },
 }) => {
-  const [tasks, setTasks] = useState<Task[]>(Tasks);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   const handleToggleTask = useCallback(
     (task: Task): void => {
@@ -66,6 +55,13 @@ export const HomeScreen: FunctionComponent<HomeScreenProps> = ({
   const handleCreateTask = (): void => {
     navigate('AddTask');
   };
+
+  useFocusEffect(
+    useCallback(() => {
+      const savedTasks = storage.getString(storedKeys.TASKS_KEY);
+      setTasks(savedTasks ? JSON.parse(savedTasks) : []);
+    }, []),
+  );
 
   return (
     <Container>
