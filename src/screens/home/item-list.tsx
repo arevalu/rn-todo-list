@@ -37,7 +37,14 @@ export const ItemList: FunctionComponent<ItemListProps> = ({
   onToggleTask,
 }) => (
   <ItemWrapper onPress={onToggleTask}>
-    <Checkbox checked={completed} color={color || 'defaultCategory'} />
+    <Checkbox
+      accessibilityLabel={
+        completed ? 'Mark task as complete' : 'Mark task as incomplete'
+      }
+      checked={completed}
+      color={color || 'defaultCategory'}
+      onPress={onToggleTask}
+    />
     <ItemTitle>{title}</ItemTitle>
   </ItemWrapper>
 );
