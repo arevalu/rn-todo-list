@@ -2,7 +2,7 @@ import React, { FunctionComponent, useMemo } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Formik } from 'formik';
 import { View } from 'react-native';
-import { Button, Container, InputText, Navbar } from '../../components';
+import { Button, InputText, Wrapper } from '../../components';
 import { storage, storedKeys } from '../../core/helpers/storage';
 import { RootNavigationParams } from '../../core/routing/types';
 import styled from '../../core/theme/styled-components';
@@ -31,8 +31,9 @@ const initialValues: FormFields = {
  * Styled components
  */
 
-const FormWrapper = styled(Container)`
+const FormWrapper = styled(Wrapper)`
   justify-content: space-between;
+  padding-top: 16px;
 `;
 
 /**
@@ -40,7 +41,7 @@ const FormWrapper = styled(Container)`
  */
 
 export const AddTaskScreen: FunctionComponent<AddTaskScreenProps> = ({
-  navigation: { goBack, navigate },
+  navigation: { navigate },
 }) => {
   const validationSchema = useMemo(() => getValidationSchema(), []);
   const taskId = new Date().getTime().toString();
@@ -61,50 +62,39 @@ export const AddTaskScreen: FunctionComponent<AddTaskScreenProps> = ({
   };
 
   return (
-    <Container>
-      <Navbar>
-        <Navbar.IconButton
-          accessibilityLabel="Go back"
-          align="left"
-          name="ArrowLeft"
-          onPress={goBack}
-        />
-        <Navbar.Title title="Add task" />
-      </Navbar>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-        validateOnMount
-      >
-        {({ isValid, values, handleBlur, handleChange, handleSubmit }) => (
-          <FormWrapper horizontalSpacing>
-            <View>
-              <InputText
-                label="Title"
-                placeholder="Add title"
-                value={values.title}
-                onChangeText={handleChange('title')}
-                onBlur={handleBlur('title')}
-              />
-              <InputText
-                label="Description"
-                placeholder="Add description for your task"
-                value={values.description}
-                onChangeText={handleChange('description')}
-                onBlur={handleBlur('description')}
-                lastItem
-              />
-            </View>
-            <Button
-              accessibilityLabel="Create a task"
-              disabled={!isValid}
-              text="Create a task"
-              onPress={handleSubmit}
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+      validateOnMount
+    >
+      {({ isValid, values, handleBlur, handleChange, handleSubmit }) => (
+        <FormWrapper>
+          <View>
+            <InputText
+              label="Title"
+              placeholder="Add title"
+              value={values.title}
+              onChangeText={handleChange('title')}
+              onBlur={handleBlur('title')}
             />
-          </FormWrapper>
-        )}
-      </Formik>
-    </Container>
+            <InputText
+              label="Description"
+              placeholder="Add description for your task"
+              value={values.description}
+              onChangeText={handleChange('description')}
+              onBlur={handleBlur('description')}
+              lastItem
+            />
+          </View>
+          <Button
+            accessibilityLabel="Create a task"
+            disabled={!isValid}
+            text="Create a task"
+            onPress={handleSubmit}
+          />
+        </FormWrapper>
+      )}
+    </Formik>
   );
 };

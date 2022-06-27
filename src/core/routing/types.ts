@@ -1,4 +1,11 @@
+import { Task } from '../../screens/home/types';
+
+interface TaskDetailScreenParams {
+  task: Task;
+}
+
 export type RootNavigationParams = {
-  Home: undefined;
   AddTask: undefined;
+  TaskDetail: TaskDetailScreenParams;
+  Home: undefined;
 };

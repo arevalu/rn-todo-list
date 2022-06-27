@@ -2,9 +2,8 @@ import React, { FunctionComponent, useCallback } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FlatList } from 'react-native';
 import EmptyStateNoTasks from '../../../assets/images/img_empty_state_no_tasks.webp';
-import { Container, EmptyState } from '../../components';
+import { EmptyState, Wrapper } from '../../components';
 import { Button } from '../../components/button';
-import { Navbar } from '../../components/navbar';
 import { isEmptyArray } from '../../core/helpers';
 import { RootNavigationParams } from '../../core/routing/types';
 import styled from '../../core/theme/styled-components';
@@ -19,10 +18,6 @@ import { useFilteredTasks } from './use-filtered-tasks';
 
 type HomeScreenProps = NativeStackScreenProps<RootNavigationParams, 'Home'>;
 
-interface WrapperProps {
-  fullWidth?: boolean;
-}
-
 /**
  * Constants
  */
@@ -32,13 +27,6 @@ const IMAGE_SCALE = 0.2;
 /**
  * Styled components
  */
-
-const Wrapper = styled.View<WrapperProps>`
-  flex: 1;
-  justify-content: space-between;
-
-  ${({ fullWidth }) => !fullWidth && 'padding: 0 16px;'}
-`;
 
 const FlatlistWrapper = styled.View`
   flex: 1;
@@ -54,6 +42,15 @@ export const HomeScreen: FunctionComponent<HomeScreenProps> = ({
 }) => {
   const { options, selectedFilter, tasks, changeFilter, updateTasks } =
     useFilteredTasks();
+
+  const handleDetailTask = useCallback(
+    (task: Task) => {
+      navigate('TaskDetail', {
+        task,
+      });
+    },
+    [navigate],
+  );
 
   const handleToggleTask = useCallback(
     (task: Task): void => {
@@ -76,12 +73,11 @@ export const HomeScreen: FunctionComponent<HomeScreenProps> = ({
   };
 
   return (
-    <Container>
-      <Navbar>
-        <Navbar.Title title="My Tasks" />
-      </Navbar>
+    <>
       {(!isEmptyArray(tasks) || selectedFilter === FilterOptions.COMPLETED) && (
-        <FilterSection options={options} onChangeFilter={changeFilter} />
+        <Wrapper flex={false} fullWidth>
+          <FilterSection options={options} onChangeFilter={changeFilter} />
+        </Wrapper>
       )}
       <Wrapper>
         {isEmptyArray(tasks) && selectedFilter === FilterOptions.ALL ? (
@@ -96,6 +92,7 @@ export const HomeScreen: FunctionComponent<HomeScreenProps> = ({
               data={tasks}
               renderItem={({ item }) => (
                 <ItemList
+                  onDetailTask={() => handleDetailTask(item)}
                   onToggleTask={() => handleToggleTask(item)}
                   {...item}
                 />
@@ -110,6 +107,6 @@ export const HomeScreen: FunctionComponent<HomeScreenProps> = ({
           onPress={handleCreateTask}
         />
       </Wrapper>
-    </Container>
+    </>
   );
 };

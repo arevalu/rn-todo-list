@@ -8,6 +8,7 @@ import { Task } from './types';
  */
 
 interface ItemListProps extends Task {
+  onDetailTask: () => void;
   onToggleTask: () => void;
 }
 
@@ -18,6 +19,7 @@ interface ItemListProps extends Task {
 const ItemWrapper = styled.TouchableOpacity`
   align-items: center;
   flex-direction: row;
+  padding: 8px 0;
   margin-bottom: 24px;
 `;
 
@@ -34,9 +36,10 @@ export const ItemList: FunctionComponent<ItemListProps> = ({
   category: { color } = {},
   completed,
   title,
+  onDetailTask,
   onToggleTask,
 }) => (
-  <ItemWrapper onPress={onToggleTask}>
+  <ItemWrapper onPress={onDetailTask}>
     <Checkbox
       accessibilityLabel={
         completed ? 'Mark task as complete' : 'Mark task as incomplete'

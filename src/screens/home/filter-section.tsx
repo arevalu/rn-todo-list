@@ -87,6 +87,7 @@ export const FilterSection: FunctionComponent<FilterSectionProps> = ({
         <ItemText active={active}>{name}</ItemText>
       </FilterItem>
     )}
+    keyExtractor={({ name }) => name}
     showsHorizontalScrollIndicator={false}
     style={FLATLIST_STYLES}
     horizontal
