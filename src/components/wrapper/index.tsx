@@ -1,5 +1,5 @@
-import { ColorsKey } from '../../core/theme';
-import styled from '../../core/theme/styled-components';
+import { ColorsKey } from '@core/theme';
+import styled from '@core/theme/styled-components';
 
 /**
  * Types

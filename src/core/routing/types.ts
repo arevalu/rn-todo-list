@@ -1,4 +1,4 @@
-import { Task } from '../../screens/home/types';
+import { Task } from '@core/types';
 
 interface TaskDetailScreenParams {
   task: Task;

@@ -1,6 +1,7 @@
 import React, { FunctionComponent, ReactNode } from 'react';
 import { NativeStackHeaderProps } from '@react-navigation/native-stack';
-import styled from '../../core/theme/styled-components';
+
+import styled from '@core/theme/styled-components';
 import { NavbarIconButton, NavbarIconButtonProps } from './navbar-icon-button';
 import { NavbarTitle } from './navbar-title';
 

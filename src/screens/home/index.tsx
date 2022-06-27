@@ -1,15 +1,17 @@
 import React, { FunctionComponent, useCallback } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FlatList } from 'react-native';
+
+import { EmptyState, Wrapper } from '@components';
+import { Button } from '@components/button';
+import { isEmptyArray } from '@core/helpers';
+import { RootNavigationParams } from '@core/routing/types';
+import styled from '@core/theme/styled-components';
+import { Task } from '@core/types';
 import EmptyStateNoTasks from '../../../assets/images/img_empty_state_no_tasks.webp';
-import { EmptyState, Wrapper } from '../../components';
-import { Button } from '../../components/button';
-import { isEmptyArray } from '../../core/helpers';
-import { RootNavigationParams } from '../../core/routing/types';
-import styled from '../../core/theme/styled-components';
 import { FilterSection } from './filter-section';
 import { ItemList } from './item-list';
-import { FilterOptions, Task } from './types';
+import { FilterOptions } from './types';
 import { useFilteredTasks } from './use-filtered-tasks';
 
 /**

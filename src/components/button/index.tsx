@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
-import { Colors } from '../../core/theme';
-import styled from '../../core/theme/styled-components';
-import { TouchableOpacityProps } from '../../core/types';
+import { Colors } from '@core/theme';
+import styled from '@core/theme/styled-components';
+import { TouchableOpacityProps } from '@core/types';
 
 /**
  * Types

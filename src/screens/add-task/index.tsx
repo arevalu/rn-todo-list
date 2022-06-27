@@ -2,11 +2,12 @@ import React, { FunctionComponent, useMemo } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Formik } from 'formik';
 import { View } from 'react-native';
-import { Button, InputText, Wrapper } from '../../components';
-import { storage, storedKeys } from '../../core/helpers/storage';
-import { RootNavigationParams } from '../../core/routing/types';
-import styled from '../../core/theme/styled-components';
-import { Task } from '../home/types';
+
+import { Button, InputText, Wrapper } from '@components';
+import { storage, storedKeys } from '@core/helpers';
+import { RootNavigationParams } from '@core/routing/types';
+import styled from '@core/theme/styled-components';
+import { Task } from '@core/types';
 import { FormFields, getValidationSchema } from './helpers';
 
 /**

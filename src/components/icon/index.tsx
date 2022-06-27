@@ -1,6 +1,6 @@
 /* eslint-disable import/namespace */
 import React, { FunctionComponent } from 'react';
-import { Colors, ColorsKey } from '../../core/theme';
+import { Colors, ColorsKey } from '@core/theme';
 import * as icons from './icons';
 
 /**

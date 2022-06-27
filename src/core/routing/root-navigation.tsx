@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Navbar, SafeArea } from '../../components';
-import { AddTaskScreen, HomeScreen } from '../../screens';
-import { TaskDetail } from '../../screens/detail';
+
+import { Navbar, SafeArea } from '@components';
+import { AddTaskScreen, HomeScreen, TaskDetail } from '@screens';
 import { RootNavigationParams } from './types';
 
 const Stack = createNativeStackNavigator<RootNavigationParams>();

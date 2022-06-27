@@ -1,8 +1,9 @@
 import React, { FunctionComponent, useLayoutEffect } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Button, Wrapper } from '../../components';
-import { RootNavigationParams } from '../../core/routing/types';
-import styled from '../../core/theme/styled-components';
+
+import { Button, Wrapper } from '@components';
+import { RootNavigationParams } from '@core/routing/types';
+import styled from '@core/theme/styled-components';
 
 /**
  * Types

@@ -1,7 +1,7 @@
 import React, { FunctionComponent, ReactNode } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ColorsKey } from '../../core/theme/colors';
-import styled from '../../core/theme/styled-components';
+import { ColorsKey } from '@core/theme/colors';
+import styled from '@core/theme/styled-components';
 
 /**
  * Types

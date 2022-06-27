@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
-import styled from '../../core/theme/styled-components';
-import { PickWithRequired, TouchableOpacityProps } from '../../core/types';
+import styled from '@core/theme/styled-components';
+import { PickWithRequired, TouchableOpacityProps } from '@core/types';
 import { Icon, IconsProps } from '../icon';
 
 /**

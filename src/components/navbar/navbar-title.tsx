@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import styled from '../../core/theme/styled-components';
+import styled from '@core/theme/styled-components';
 
 /**
  * Types

@@ -1,6 +1,5 @@
 import * as yup from 'yup';
-import { Shape } from '../../core/types';
-import { Task } from '../home/types';
+import { Shape, Task } from '@core/types';
 
 export type FormFields = Pick<Task, 'description' | 'title'>;
 

@@ -1,8 +1,10 @@
 import { useCallback, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
-import { storage, storedKeys } from '../../core/helpers/storage';
+
+import { storage, storedKeys } from '@core/helpers';
+import { Task } from '@core/types';
 import { Option } from './filter-section';
-import { FilterOptions, Task } from './types';
+import { FilterOptions } from './types';
 
 /**
  * Types

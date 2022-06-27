@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
-import { Checkbox } from '../../components/checkbox';
-import styled from '../../core/theme/styled-components';
-import { Task } from './types';
+import { Checkbox } from '@components';
+import styled from '@core/theme/styled-components';
+import { Task } from '@core/types';
 
 /**
  * Types
