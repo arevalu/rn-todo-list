@@ -6,13 +6,6 @@ export enum FilterOptions {
   UNCOMPLETED = 'Uncompleted',
 }
 
-export enum RepetitionTask {
-  DAILY = 'Daily',
-  WEEKLY = 'Weekly',
-  MONTHLY = 'Monthly',
-  ANNUALLY = 'Annually',
-}
-
 export enum CategoryType {
   MY_TASKS = 'My Tasks',
 }
@@ -30,6 +23,5 @@ export interface Task {
   completed: boolean;
   date?: string;
   description?: string;
-  repetitionRate?: RepetitionTask;
   title: string;
 }
