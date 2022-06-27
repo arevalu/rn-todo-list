@@ -4,3 +4,5 @@ declare module '*.svg' {
   const content: FunctionComponent<SvgProps>;
   export default content;
 }
+
+declare module '*.webp';

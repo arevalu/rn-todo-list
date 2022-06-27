@@ -2,6 +2,7 @@ import React, { FunctionComponent, useCallback, useState } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FlatList } from 'react-native';
+import EmptyStateNoTasks from '../../../assets/images/img_empty_state_no_tasks.webp';
 import { Container, EmptyState } from '../../components';
 import { Button } from '../../components/button';
 import { Navbar } from '../../components/navbar';
@@ -17,6 +18,12 @@ import { Task } from './types';
  */
 
 type HomeScreenProps = NativeStackScreenProps<RootNavigationParams, 'Home'>;
+
+/**
+ * Constants
+ */
+
+const IMAGE_SCALE = 0.2;
 
 /**
  * Styled components
@@ -71,7 +78,11 @@ export const HomeScreen: FunctionComponent<HomeScreenProps> = ({
       <Container horizontalSpacing>
         <>
           {isEmptyArray(tasks) ? (
-            <EmptyState title="No tasks created yet!" />
+            <EmptyState
+              image={EmptyStateNoTasks}
+              scale={IMAGE_SCALE}
+              title="No tasks created yet!"
+            />
           ) : (
             <FlatlistWrapper>
               <FlatList<Task>
