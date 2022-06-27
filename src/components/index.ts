@@ -5,3 +5,4 @@ export * from './empty-state';
 export * from './icon';
 export * from './input-text';
 export * from './navbar';
+export * from './wrapper';
