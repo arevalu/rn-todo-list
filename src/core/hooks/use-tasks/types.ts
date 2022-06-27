@@ -3,3 +3,8 @@ export enum FilterOptions {
   COMPLETED = 'Completed',
   UNCOMPLETED = 'Uncompleted',
 }
+
+export interface Option {
+  active: boolean;
+  name: FilterOptions;
+}

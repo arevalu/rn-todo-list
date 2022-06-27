@@ -1,18 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import { Dimensions, FlatList } from 'react-native';
 
+import { FilterOptions, Option } from '@core/hooks/use-tasks/types';
 import { Colors } from '@core/theme';
 import styled, { css } from '@core/theme/styled-components';
-import { FilterOptions } from './types';
 
 /**
  * Types
  */
-
-export interface Option {
-  active: boolean;
-  name: FilterOptions;
-}
 
 interface FilterSectionProps {
   options: Option[];

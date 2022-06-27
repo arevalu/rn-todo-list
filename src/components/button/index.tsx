@@ -8,8 +8,9 @@ import { TouchableOpacityProps } from '@core/types';
  */
 
 enum ButtonVariant {
-  PRIMARY = 'primary',
   DANGER = 'danger',
+  PRIMARY = 'primary',
+  SECONDARY = 'secondary',
 }
 
 interface ButtonProps extends TouchableOpacityProps {
@@ -26,6 +27,7 @@ type StyledButtonProps = Pick<ButtonProps, 'disabled' | 'variant'>;
 const ButtonVariants: Record<ButtonVariant, string> = {
   [ButtonVariant.DANGER]: Colors.danger,
   [ButtonVariant.PRIMARY]: Colors.primary,
+  [ButtonVariant.SECONDARY]: Colors.secondary,
 };
 
 const ButtonWrapper = styled.TouchableOpacity<StyledButtonProps>`

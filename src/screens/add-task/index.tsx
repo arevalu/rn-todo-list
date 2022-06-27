@@ -4,7 +4,7 @@ import { Formik } from 'formik';
 import { View } from 'react-native';
 
 import { Button, InputText, Wrapper } from '@components';
-import { storage, storedKeys } from '@core/helpers';
+import { useTasks } from '@core/hooks';
 import { RootNavigationParams } from '@core/routing/types';
 import styled from '@core/theme/styled-components';
 import { Task } from '@core/types';
@@ -45,6 +45,7 @@ export const AddTaskScreen: FunctionComponent<AddTaskScreenProps> = ({
   navigation: { navigate },
 }) => {
   const validationSchema = useMemo(() => getValidationSchema(), []);
+  const { addTask } = useTasks();
   const taskId = new Date().getTime().toString();
 
   const handleSubmit = (values: FormFields): void => {
@@ -54,10 +55,7 @@ export const AddTaskScreen: FunctionComponent<AddTaskScreenProps> = ({
       id: taskId,
     };
 
-    const savedTasks = storage.getString(storedKeys.TASKS_KEY);
-    const tasks = savedTasks ? [...JSON.parse(savedTasks), newTask] : [newTask];
-
-    storage.set(storedKeys.TASKS_KEY, JSON.stringify(tasks));
+    addTask(newTask);
 
     navigate('Home');
   };

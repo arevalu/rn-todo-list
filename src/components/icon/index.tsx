@@ -12,9 +12,15 @@ export type IconName = keyof typeof icons;
 export interface IconsProps {
   color: ColorsKey;
   name: IconName;
-  size: number;
+  size?: number;
   testID?: string;
 }
+
+/**
+ * Constants
+ */
+
+const ICON_SIZE = 24;
 
 /**
  * Icons
@@ -23,7 +29,7 @@ export interface IconsProps {
 export const Icon: FunctionComponent<IconsProps> = ({
   color,
   name,
-  size,
+  size = ICON_SIZE,
   testID,
 }) => {
   const IconComponent = icons[name];

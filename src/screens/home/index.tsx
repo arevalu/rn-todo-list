@@ -5,14 +5,14 @@ import { FlatList } from 'react-native';
 import { EmptyState, Wrapper } from '@components';
 import { Button } from '@components/button';
 import { isEmptyArray } from '@core/helpers';
+import { useTasks } from '@core/hooks';
+import { FilterOptions } from '@core/hooks/use-tasks/types';
 import { RootNavigationParams } from '@core/routing/types';
 import styled from '@core/theme/styled-components';
 import { Task } from '@core/types';
 import EmptyStateNoTasks from '../../../assets/images/img_empty_state_no_tasks.webp';
 import { FilterSection } from './filter-section';
 import { ItemList } from './item-list';
-import { FilterOptions } from './types';
-import { useFilteredTasks } from './use-filtered-tasks';
 
 /**
  * Types
@@ -43,7 +43,7 @@ export const HomeScreen: FunctionComponent<HomeScreenProps> = ({
   navigation: { navigate },
 }) => {
   const { options, selectedFilter, tasks, changeFilter, updateTasks } =
-    useFilteredTasks();
+    useTasks();
 
   const handleDetailTask = useCallback(
     (task: Task) => {
