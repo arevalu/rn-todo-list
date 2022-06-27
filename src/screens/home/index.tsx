@@ -1,5 +1,4 @@
-import React, { FunctionComponent, useCallback, useState } from 'react';
-import { useFocusEffect } from '@react-navigation/native';
+import React, { FunctionComponent, useCallback } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FlatList } from 'react-native';
 import EmptyStateNoTasks from '../../../assets/images/img_empty_state_no_tasks.webp';
@@ -7,17 +6,22 @@ import { Container, EmptyState } from '../../components';
 import { Button } from '../../components/button';
 import { Navbar } from '../../components/navbar';
 import { isEmptyArray } from '../../core/helpers';
-import { storage, storedKeys } from '../../core/helpers/storage';
 import { RootNavigationParams } from '../../core/routing/types';
 import styled from '../../core/theme/styled-components';
+import { FilterSection } from './filter-section';
 import { ItemList } from './item-list';
-import { Task } from './types';
+import { FilterOptions, Task } from './types';
+import { useFilteredTasks } from './use-filtered-tasks';
 
 /**
  * Types
  */
 
 type HomeScreenProps = NativeStackScreenProps<RootNavigationParams, 'Home'>;
+
+interface WrapperProps {
+  fullWidth?: boolean;
+}
 
 /**
  * Constants
@@ -28,6 +32,13 @@ const IMAGE_SCALE = 0.2;
 /**
  * Styled components
  */
+
+const Wrapper = styled.View<WrapperProps>`
+  flex: 1;
+  justify-content: space-between;
+
+  ${({ fullWidth }) => !fullWidth && 'padding: 0 16px;'}
+`;
 
 const FlatlistWrapper = styled.View`
   flex: 1;
@@ -41,7 +52,8 @@ const FlatlistWrapper = styled.View`
 export const HomeScreen: FunctionComponent<HomeScreenProps> = ({
   navigation: { navigate },
 }) => {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const { options, selectedFilter, tasks, changeFilter, updateTasks } =
+    useFilteredTasks();
 
   const handleToggleTask = useCallback(
     (task: Task): void => {
@@ -54,56 +66,50 @@ export const HomeScreen: FunctionComponent<HomeScreenProps> = ({
           : taskList,
       );
 
-      setTasks(updatedTasks);
+      updateTasks(updatedTasks);
     },
-    [tasks],
+    [tasks, updateTasks],
   );
 
   const handleCreateTask = (): void => {
     navigate('AddTask');
   };
 
-  useFocusEffect(
-    useCallback(() => {
-      const savedTasks = storage.getString(storedKeys.TASKS_KEY);
-      setTasks(savedTasks ? JSON.parse(savedTasks) : []);
-    }, []),
-  );
-
   return (
     <Container>
       <Navbar>
         <Navbar.Title title="My Tasks" />
       </Navbar>
-      <Container horizontalSpacing>
-        <>
-          {isEmptyArray(tasks) ? (
-            <EmptyState
-              image={EmptyStateNoTasks}
-              scale={IMAGE_SCALE}
-              title="No tasks created yet!"
-            />
-          ) : (
-            <FlatlistWrapper>
-              <FlatList<Task>
-                data={tasks}
-                renderItem={({ item }) => (
-                  <ItemList
-                    onToggleTask={() => handleToggleTask(item)}
-                    {...item}
-                  />
-                )}
-                keyExtractor={({ id }) => id}
-              />
-            </FlatlistWrapper>
-          )}
-          <Button
-            accessibilityLabel="Add task"
-            text="Add task"
-            onPress={handleCreateTask}
+      {(!isEmptyArray(tasks) || selectedFilter === FilterOptions.COMPLETED) && (
+        <FilterSection options={options} onChangeFilter={changeFilter} />
+      )}
+      <Wrapper>
+        {isEmptyArray(tasks) && selectedFilter === FilterOptions.ALL ? (
+          <EmptyState
+            image={EmptyStateNoTasks}
+            scale={IMAGE_SCALE}
+            title="No tasks created yet!"
           />
-        </>
-      </Container>
+        ) : (
+          <FlatlistWrapper>
+            <FlatList<Task>
+              data={tasks}
+              renderItem={({ item }) => (
+                <ItemList
+                  onToggleTask={() => handleToggleTask(item)}
+                  {...item}
+                />
+              )}
+              keyExtractor={({ id }) => id}
+            />
+          </FlatlistWrapper>
+        )}
+        <Button
+          accessibilityLabel="Add task"
+          text="Add task"
+          onPress={handleCreateTask}
+        />
+      </Wrapper>
     </Container>
   );
 };

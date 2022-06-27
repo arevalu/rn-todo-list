@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useId, useMemo } from 'react';
+import React, { FunctionComponent, useMemo } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Formik } from 'formik';
 import { View } from 'react-native';
@@ -43,7 +43,7 @@ export const AddTaskScreen: FunctionComponent<AddTaskScreenProps> = ({
   navigation: { goBack, navigate },
 }) => {
   const validationSchema = useMemo(() => getValidationSchema(), []);
-  const taskId = useId();
+  const taskId = new Date().getTime().toString();
 
   const handleSubmit = (values: FormFields): void => {
     const newTask: Task = {

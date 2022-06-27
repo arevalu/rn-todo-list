@@ -1,5 +1,11 @@
 import { ColorsKey } from '../../core/theme';
 
+export enum FilterOptions {
+  ALL = 'All',
+  COMPLETED = 'Completed',
+  UNCOMPLETED = 'Uncompleted',
+}
+
 export enum RepetitionTask {
   DAILY = 'Daily',
   WEEKLY = 'Weekly',
