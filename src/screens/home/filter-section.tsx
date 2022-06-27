@@ -47,7 +47,12 @@ const FilterItemInactive = css`
   border-bottom-color: ${({ theme: { Colors } }) => Colors.gray100};
 `;
 
+const ItemTextActive = css`
+  font-family: ${({ theme: { Fonts } }) => Fonts.medium};
+`;
+
 const ItemTextInactive = css`
+  font-family: ${({ theme: { Fonts } }) => Fonts.regular};
   color: ${({ theme: { Colors } }) => Colors.gray500};
 `;
 
@@ -62,10 +67,9 @@ const FilterItem = styled.TouchableOpacity<FilterItemProps>`
 `;
 
 const ItemText = styled.Text<Pick<FilterItemProps, 'active'>>`
-  font-family: ${({ theme: { Fonts } }) => Fonts.regular};
   font-size: 16px;
 
-  ${({ active }) => !active && ItemTextInactive};
+  ${({ active }) => (active ? ItemTextActive : ItemTextInactive)};
 `;
 
 /**
