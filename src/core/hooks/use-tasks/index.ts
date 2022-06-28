@@ -10,6 +10,7 @@ import { FilterOptions, Option } from './types';
  */
 
 interface FilteredTasksHook {
+  isEmptyTaskList: boolean;
   selectedFilter: FilterOptions;
   options: Option[];
   tasks: Task[];
@@ -76,6 +77,8 @@ export const useTasks = (): FilteredTasksHook => {
     [FilterOptions.UNCOMPLETED]: tasks.filter(task => !task.completed),
   };
 
+  const isEmptyTaskList = tasks.length === 0;
+
   const addTask = (newTask: Task): void => {
     const savedTasks = storage.getString(storedKeys.TASKS_KEY);
     const tasks = savedTasks ? [...JSON.parse(savedTasks), newTask] : [newTask];
@@ -100,6 +103,7 @@ export const useTasks = (): FilteredTasksHook => {
   };
 
   return {
+    isEmptyTaskList,
     selectedFilter,
     options,
     tasks: filteredOptions[selectedFilter],

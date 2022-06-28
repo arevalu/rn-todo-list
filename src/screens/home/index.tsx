@@ -4,9 +4,7 @@ import { FlatList } from 'react-native';
 
 import { EmptyState, Wrapper } from '@components';
 import { Button } from '@components/button';
-import { isEmptyArray } from '@core/helpers';
 import { useTasks } from '@core/hooks';
-import { FilterOptions } from '@core/hooks/use-tasks/types';
 import { RootNavigationParams } from '@core/routing/types';
 import styled from '@core/theme/styled-components';
 import { Task } from '@core/types';
@@ -42,7 +40,7 @@ const FlatlistWrapper = styled.View`
 export const HomeScreen: FunctionComponent<HomeScreenProps> = ({
   navigation: { navigate },
 }) => {
-  const { options, selectedFilter, tasks, changeFilter, updateTasks } =
+  const { isEmptyTaskList, options, tasks, changeFilter, updateTasks } =
     useTasks();
 
   const handleDetailTask = useCallback(
@@ -76,13 +74,13 @@ export const HomeScreen: FunctionComponent<HomeScreenProps> = ({
 
   return (
     <>
-      {(!isEmptyArray(tasks) || selectedFilter === FilterOptions.COMPLETED) && (
+      {!isEmptyTaskList && (
         <Wrapper expanded={false} fullWidth>
           <FilterSection options={options} onChangeFilter={changeFilter} />
         </Wrapper>
       )}
       <Wrapper>
-        {isEmptyArray(tasks) && selectedFilter === FilterOptions.ALL ? (
+        {isEmptyTaskList ? (
           <EmptyState
             image={EmptyStateNoTasks}
             scale={IMAGE_SCALE}
