@@ -1,8 +1,13 @@
-import React, { FunctionComponent, useCallback } from 'react';
+import React, {
+  FunctionComponent,
+  useCallback,
+  useLayoutEffect,
+  useState,
+} from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { FlatList } from 'react-native';
 
-import { EmptyState, Wrapper } from '@components';
+import { EmptyState, Icon, Modal, Navbar, Wrapper } from '@components';
 import { Button } from '@components/button';
 import { useTasks } from '@core/hooks';
 import { RootNavigationParams } from '@core/routing/types';
@@ -28,9 +33,37 @@ const IMAGE_SCALE = 0.2;
  * Styled components
  */
 
-const FlatlistWrapper = styled.View`
+const NavbarWrapper = styled.View`
+  align-items: center;
+  flex: 1%;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const ModalContainer = styled.View`
   flex: 1;
-  padding: 0 16px;
+  justify-content: space-between;
+  padding: 16px;
+`;
+
+const ModalMessage = styled.View`
+  align-items: center;
+  flex: 1;
+  flex-direction: row;
+  padding: 0 8px 16px;
+`;
+
+const ModalText = styled.Text`
+  font-family: ${({ theme: { Fonts } }) => Fonts.light};
+  flex: 1;
+  font-size: 16px;
+  margin-left: 8px;
+`;
+
+const ButtonsWrapper = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
 `;
 
 /**
@@ -38,10 +71,17 @@ const FlatlistWrapper = styled.View`
  */
 
 export const HomeScreen: FunctionComponent<HomeScreenProps> = ({
-  navigation: { navigate },
+  navigation: { navigate, setOptions },
 }) => {
-  const { isEmptyTaskList, options, tasks, changeFilter, updateTasks } =
-    useTasks();
+  const [modalVisible, setModalVisible] = useState(false);
+  const {
+    isEmptyTaskList,
+    options,
+    tasks,
+    changeFilter,
+    clearTasks,
+    updateTasks,
+  } = useTasks();
 
   const handleDetailTask = useCallback(
     (task: Task) => {
@@ -51,6 +91,15 @@ export const HomeScreen: FunctionComponent<HomeScreenProps> = ({
     },
     [navigate],
   );
+
+  const handleCreateTask = (): void => {
+    navigate('AddTask');
+  };
+
+  const handleAcceptModal = (): void => {
+    clearTasks();
+    setModalVisible(!modalVisible);
+  };
 
   const handleToggleTask = useCallback(
     (task: Task): void => {
@@ -68,9 +117,24 @@ export const HomeScreen: FunctionComponent<HomeScreenProps> = ({
     [tasks, updateTasks],
   );
 
-  const handleCreateTask = (): void => {
-    navigate('AddTask');
-  };
+  useLayoutEffect(() => {
+    setOptions({
+      header: () => (
+        <Navbar>
+          <NavbarWrapper>
+            <Navbar.Title title="My Tasks" />
+            {!isEmptyTaskList && (
+              <Navbar.LinkText
+                accessibilityLabel="Clear all tasks"
+                text="Clear all tasks"
+                onPress={() => setModalVisible(!modalVisible)}
+              />
+            )}
+          </NavbarWrapper>
+        </Navbar>
+      ),
+    });
+  }, [isEmptyTaskList, modalVisible, setOptions]);
 
   return (
     <>
@@ -87,7 +151,7 @@ export const HomeScreen: FunctionComponent<HomeScreenProps> = ({
             title="No tasks created yet!"
           />
         ) : (
-          <FlatlistWrapper>
+          <Wrapper>
             <FlatList<Task>
               data={tasks}
               renderItem={({ item }) => (
@@ -99,7 +163,7 @@ export const HomeScreen: FunctionComponent<HomeScreenProps> = ({
               )}
               keyExtractor={({ id }) => id}
             />
-          </FlatlistWrapper>
+          </Wrapper>
         )}
         <Button
           accessibilityLabel="Add task"
@@ -107,6 +171,29 @@ export const HomeScreen: FunctionComponent<HomeScreenProps> = ({
           onPress={handleCreateTask}
         />
       </Wrapper>
+      <Modal visible={modalVisible}>
+        <ModalContainer>
+          <ModalMessage>
+            <Icon name="Delete" color="gray600" size={32} />
+            <ModalText>¿Do you want to delete all your tasks?</ModalText>
+          </ModalMessage>
+          <ButtonsWrapper>
+            <Button
+              accessibilityLabel="Cancelar"
+              color="danger"
+              text="Cancelar"
+              variant="text"
+              onPress={() => setModalVisible(!modalVisible)}
+            />
+            <Button
+              accessibilityLabel="Ok"
+              color="secondary"
+              text="Ok"
+              onPress={handleAcceptModal}
+            />
+          </ButtonsWrapper>
+        </ModalContainer>
+      </Modal>
     </>
   );
 };

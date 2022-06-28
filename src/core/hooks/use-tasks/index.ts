@@ -16,6 +16,7 @@ interface FilteredTasksHook {
   tasks: Task[];
   addTask: (newTask: Task) => void;
   changeFilter: (filterOption: FilterOptions) => void;
+  clearTasks: () => void;
   deleteTask: (taskID: string) => void;
   updateTasks: (updatedTasks: Task[]) => void;
 }
@@ -90,6 +91,11 @@ export const useTasks = (): FilteredTasksHook => {
   const changeFilter = (filterOption: FilterOptions): void =>
     setSelectedFilter(filterOption);
 
+  const clearTasks = (): void => {
+    storage.delete(storedKeys.TASKS_KEY);
+    setTasks([]);
+  };
+
   const deleteTask = (taskID: string): void => {
     const filteredTasks = tasks.filter(task => task.id !== taskID);
 
@@ -109,6 +115,7 @@ export const useTasks = (): FilteredTasksHook => {
     tasks: filteredOptions[selectedFilter],
     addTask,
     changeFilter,
+    clearTasks,
     deleteTask,
     updateTasks,
   };

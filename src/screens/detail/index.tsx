@@ -107,7 +107,7 @@ export const TaskDetail: FunctionComponent<TaskDetailScreenProps> = ({
           accessibilityLabel="Delete task"
           text="Delete task"
           onPress={() => handleDeleteTask(id)}
-          variant="danger"
+          color="danger"
         />
         <Modal visible={modalVisible}>
           <ModalContainer>
@@ -119,7 +119,7 @@ export const TaskDetail: FunctionComponent<TaskDetailScreenProps> = ({
               accessibilityLabel="Ok"
               text="Ok"
               onPress={handleModal}
-              variant="secondary"
+              color="secondary"
             />
           </ModalContainer>
         </Modal>

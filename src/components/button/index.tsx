@@ -7,41 +7,77 @@ import { TouchableOpacityProps } from '@core/types';
  * Types
  */
 
-enum ButtonVariant {
+enum ButtonColor {
   DANGER = 'danger',
   PRIMARY = 'primary',
   SECONDARY = 'secondary',
 }
 
+enum ButtonVariant {
+  FILLED = 'filled',
+  TEXT = 'text',
+}
+
 interface ButtonProps extends TouchableOpacityProps {
+  color?: `${ButtonColor}`;
   text: string;
   variant?: `${ButtonVariant}`;
 }
 
-type StyledButtonProps = Pick<ButtonProps, 'disabled' | 'variant'>;
+type StyledButtonProps = Pick<ButtonProps, 'color' | 'disabled' | 'variant'>;
 
 /**
  * Styled components
  */
 
-const ButtonVariants: Record<ButtonVariant, string> = {
-  [ButtonVariant.DANGER]: Colors.danger,
-  [ButtonVariant.PRIMARY]: Colors.primary,
-  [ButtonVariant.SECONDARY]: Colors.secondary,
+const BackgroundColor: Record<ButtonColor, Record<ButtonVariant, string>> = {
+  [ButtonColor.DANGER]: {
+    [ButtonVariant.FILLED]: Colors.danger,
+    [ButtonVariant.TEXT]: Colors.transparent,
+  },
+  [ButtonColor.PRIMARY]: {
+    [ButtonVariant.FILLED]: Colors.primary,
+    [ButtonVariant.TEXT]: Colors.transparent,
+  },
+  [ButtonColor.SECONDARY]: {
+    [ButtonVariant.FILLED]: Colors.secondary,
+    [ButtonVariant.TEXT]: Colors.transparent,
+  },
+};
+
+const TextColor: Record<ButtonColor, Record<ButtonVariant, string>> = {
+  [ButtonColor.DANGER]: {
+    [ButtonVariant.FILLED]: Colors.white,
+    [ButtonVariant.TEXT]: Colors.danger,
+  },
+  [ButtonColor.PRIMARY]: {
+    [ButtonVariant.FILLED]: Colors.white,
+    [ButtonVariant.TEXT]: Colors.primary,
+  },
+  [ButtonColor.SECONDARY]: {
+    [ButtonVariant.FILLED]: Colors.white,
+    [ButtonVariant.TEXT]: Colors.secondary,
+  },
 };
 
 const ButtonWrapper = styled.TouchableOpacity<StyledButtonProps>`
-  background-color: ${({ disabled, theme: { Colors }, variant }) =>
-    disabled ? Colors.gray100 : ButtonVariants[variant as ButtonVariant]};
-  border-radius: 16px;
   align-items: center;
+  background-color: ${({ color, disabled, theme: { Colors }, variant }) =>
+    disabled
+      ? Colors.gray100
+      : BackgroundColor[color as ButtonColor][variant as ButtonVariant]};
+  border-radius: 16px;
+  flex: 1;
   justify-content: center;
   height: 60px;
+  max-height: 60px;
 `;
 
 const ButtonText = styled.Text<StyledButtonProps>`
-  color: ${({ disabled, theme: { Colors } }) =>
-    disabled ? Colors.gray500 : Colors.white};
+  color: ${({ color, disabled, theme: { Colors }, variant }) =>
+    disabled
+      ? Colors.gray500
+      : TextColor[color as ButtonColor][variant as ButtonVariant]};
   font-family: ${({ theme: { Fonts } }) => Fonts.medium};
   font-size: 16px;
 `;
@@ -51,12 +87,20 @@ const ButtonText = styled.Text<StyledButtonProps>`
  */
 
 export const Button: FunctionComponent<ButtonProps> = ({
+  color = 'primary',
   disabled,
   text,
-  variant = 'primary',
+  variant = 'filled',
   ...buttonProps
 }) => (
-  <ButtonWrapper disabled={disabled} variant={variant} {...buttonProps}>
-    <ButtonText disabled={disabled}>{text}</ButtonText>
+  <ButtonWrapper
+    color={color}
+    disabled={disabled}
+    variant={variant}
+    {...buttonProps}
+  >
+    <ButtonText color={color} disabled={disabled} variant={variant}>
+      {text}
+    </ButtonText>
   </ButtonWrapper>
 );

@@ -3,6 +3,7 @@ import { NativeStackHeaderProps } from '@react-navigation/native-stack';
 
 import styled from '@core/theme/styled-components';
 import { NavbarIconButton, NavbarIconButtonProps } from './navbar-icon-button';
+import { NavbarLink, NavbarLinkProps } from './navbar-link';
 import { NavbarTitle } from './navbar-title';
 
 /**
@@ -17,6 +18,7 @@ interface NavbarProps extends Partial<NativeStackHeaderProps> {
 
 interface NavbarCompound {
   IconButton: FunctionComponent<NavbarIconButtonProps>;
+  LinkText: FunctionComponent<NavbarLinkProps>;
   Title: FunctionComponent<NavbarTitle>;
 }
 
@@ -43,4 +45,5 @@ export const Navbar: FunctionComponent<NavbarProps> & NavbarCompound = ({
 }) => <NavbarWrapper testID={testID}>{children}</NavbarWrapper>;
 
 Navbar.IconButton = NavbarIconButton;
+Navbar.LinkText = NavbarLink;
 Navbar.Title = NavbarTitle;
