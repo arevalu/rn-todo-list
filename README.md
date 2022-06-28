@@ -40,4 +40,4 @@ npm run ios
 
 ## :envelope: Contact me
 
-* []()
+* [linkedin](https://www.linkedin.com/in/arevalolucianadev/)
